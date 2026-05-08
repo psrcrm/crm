@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PSR CRM – Promo Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #060B1A;
+    --deep: #0A0E1A;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --purple: #B794F6;
+    --purple2: #7C5CBF;
+    --orange: #FC814A;
+    --blue: #63B3ED;
+    --green: #68D391;
+    --gold: #FFD700;
+    --text: #E8EAF6;
+    --text2: rgba(232,234,246,0.6);
+  }
+
+  body {
+    background: var(--navy);
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* ── POSTER CANVAS ── */
+  .poster {
+    width: 900px;
+    min-height: 1100px;
+    background: var(--deep);
+    border-radius: 32px;
+    border: 1px solid rgba(183,148,246,0.15);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(183,148,246,0.1);
+  }
+
+  /* Decorative grid lines */
+  .poster::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(183,148,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(183,148,246,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Glowing orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb-1 { width: 400px; height: 400px; background: rgba(183,148,246,0.12); top: -100px; right: -80px; }
+  .orb-2 { width: 300px; height: 300px; background: rgba(99,179,237,0.08); bottom: 200px; left: -60px; }
+  .orb-3 { width: 200px; height: 200px; background: rgba(252,129,74,0.07); top: 400px; right: 100px; }
+
+  /* ── TOP BADGE ── */
+  .top-badge {
+    display: flex; justify-content: center; padding: 32px 0 0;
+  }
+  .badge-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(183,148,246,0.12);
+    border: 1px solid rgba(183,148,246,0.3);
+    border-radius: 99px; padding: 6px 18px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: var(--purple); text-transform: uppercase;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  /* ── HERO ── */
+  .hero { padding: 28px 60px 0; position: relative; z-index: 1; text-align: center; }
+
+  .hero-icon {
+    font-size: 56px; margin-bottom: 16px;
+    filter: drop-shadow(0 0 30px rgba(183,148,246,0.5));
+  }
+
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px; font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #E8EAF6 0%, #B794F6 50%, #63B3ED 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+
+  .brand-sub {
+    font-size: 14px; font-weight: 700; letter-spacing: 5px;
+    color: var(--purple); text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 26px; color: var(--text2);
+    line-height: 1.4; margin-bottom: 32px;
+    max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .tagline span { color: var(--text); font-style: normal; }
+
+  /* Price pill */
+  .price-wrap {
+    display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 40px;
+  }
+  .price-main {
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    border-radius: 20px; padding: 14px 32px;
+    display: flex; align-items: baseline; gap: 4px;
+  }
+  .price-curr { font-size: 22px; font-weight: 800; color: #fff; }
+  .price-amt { font-size: 48px; font-weight: 800; color: #fff; line-height: 1; }
+  .price-period { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
+  .price-note { font-size: 12px; color: var(--text2); text-align: left; line-height: 1.6; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(183,148,246,0.3), transparent);
+    margin: 0 60px;
+  }
+
+  /* ── FEATURES GRID ── */
+  .features { padding: 40px 50px; position: relative; z-index: 1; }
+  .features-title {
+    text-align: center; font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; color: var(--text2); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .feat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px; padding: 20px 18px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .feat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent-color, var(--purple));
+    opacity: 0.6;
+  }
+  .feat-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .feat-name {
+    font-size: 14px; font-weight: 700; color: var(--text);
+    margin-bottom: 6px; line-height: 1.3;
+  }
+  .feat-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex; gap: 14px;
+    padding: 0 50px 40px;
+    position: relative; z-index: 1;
+  }
+  .stat-card {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px; padding: 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 700;
+    line-height: 1; margin-bottom: 6px;
+  }
+  .stat-label { font-size: 11px; color: var(--text2); font-weight: 600; letter-spacing: 0.5px; }
+
+  /* ── PIPELINE VISUAL ── */
+  .pipeline-section { padding: 0 50px 40px; position: relative; z-index: 1; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    color: var(--text2); text-transform: uppercase; margin-bottom: 18px;
+    text-align: center;
+  }
+  .pipeline {
+    display: flex; align-items: center; gap: 0;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 20px 24px; overflow: hidden;
+  }
+  .pipe-stage {
+    flex: 1; text-align: center; position: relative;
+  }
+  .pipe-stage:not(:last-child)::after {
+    content: '→';
+    position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+    color: rgba(255,255,255,0.2); font-size: 18px;
+  }
+  .pipe-dot {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin: 0 auto 8px;
+  }
+  .pipe-name { font-size: 11px; font-weight: 600; color: var(--text2); }
+
+  /* ── BOTTOM CTA ── */
+  .cta-section {
+    padding: 0 50px 50px;
+    position: relative; z-index: 1;
+  }
+  .cta-box {
+    background: linear-gradient(135deg, rgba(183,148,246,0.12), rgba(99,179,237,0.08));
+    border: 1px solid rgba(183,148,246,0.25);
+    border-radius: 24px; padding: 36px 40px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .cta-left { flex: 1; }
+  .cta-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--text);
+    line-height: 1.3; margin-bottom: 10px;
+  }
+  .cta-sub { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+  .cta-right { flex-shrink: 0; text-align: center; }
+  .wa-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    border-radius: 16px; padding: 16px 28px;
+    font-size: 15px; font-weight: 800; color: #fff;
+    text-decoration: none; margin-bottom: 12px;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+    white-space: nowrap;
+  }
+  .wa-icon { font-size: 20px; }
+  .contact-num {
+    font-size: 22px; font-weight: 800;
+    color: var(--purple);
+    letter-spacing: 1px;
+    display: block; margin-bottom: 4px;
+  }
+  .contact-tag {
+    font-size: 11px; color: var(--text2); letter-spacing: 1px; font-weight: 600;
+  }
+
+  /* ── FOOTER BAR ── */
+  .footer-bar {
+    background: rgba(183,148,246,0.06);
+    border-top: 1px solid rgba(183,148,246,0.1);
+    padding: 18px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+  .footer-brand { font-size: 13px; font-weight: 700; color: var(--purple); }
+  .footer-tags { display: flex; gap: 10px; }
+  .footer-tag {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 99px; padding: 4px 12px;
+    font-size: 11px; color: var(--text2); font-weight: 600;
+  }
+  .footer-url { font-size: 12px; color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- Glowing orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Top badge -->
+  <div class="top-badge">
+    <div class="badge-pill">
+      <div class="badge-dot"></div>
+      Built for Hyderabad Real Estate Agents
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-icon">🏡</div>
+    <div class="brand">PSR CRM</div>
+    <div class="brand-sub">PS Real Estate · Customer Relationship Manager</div>
+    <div class="tagline">
+      Stop losing leads. Start <span>closing deals.</span><br/>
+      The only CRM built for the Indian real estate agent.
+    </div>
+
+    <!-- Price -->
+    <div class="price-wrap">
+      <div class="price-main">
+        <span class="price-curr">₹</span>
+        <span class="price-amt">499</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-note">
+        ✅ No setup fee<br/>
+        ✅ Works on any phone<br/>
+        ✅ Cancel anytime
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Features Grid -->
+  <div class="features">
+    <div class="features-title">Everything You Need to Sell More</div>
+    <div class="features-grid">
+
+      <div class="feat-card" style="--accent-color: #FC814A">
+        <span class="feat-icon">🎯</span>
+        <div class="feat-name">Today's Hit List</div>
+        <div class="feat-desc">Wake up to a prioritised list of your hottest leads to call today. Never miss a follow-up again.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #B794F6">
+        <span class="feat-icon">🤖</span>
+        <div class="feat-name">AI Sales Coach</div>
+        <div class="feat-desc">Get instant, deal-specific coaching on every lead — objection handling, next steps & closing scripts.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #63B3ED">
+        <span class="feat-icon">📊</span>
+        <div class="feat-name">Conversion Funnel</div>
+        <div class="feat-desc">See exactly where your deals stall — from enquiry to registration — with live funnel analytics.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #68D391">
+        <span class="feat-icon">💬</span>
+        <div class="feat-name">WhatsApp Templates</div>
+        <div class="feat-desc">One-tap personalised WhatsApp messages. Follow-ups, site visit reminders, price updates & more.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #F6AD55">
+        <span class="feat-icon">🔥</span>
+        <div class="feat-name">Deal Health Score</div>
+        <div class="feat-desc">Every lead gets a live health score — Ready to Close, Warming Up, Needs Attention, or Going Cold.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #FFD700">
+        <span class="feat-icon">🏆</span>
+        <div class="feat-name">Daily Score & Streaks</div>
+        <div class="feat-desc">Earn points for calls, follow-ups & site visits. Build streaks and unlock badges. Stay motivated daily.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #48D1CC">
+        <span class="feat-icon">📋</span>
+        <div class="feat-name">Call Log Import</div>
+        <div class="feat-desc">Paste your phone's call log and bulk-import new leads in seconds. No manual typing needed.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #FC814A">
+        <span class="feat-icon">🏗️</span>
+        <div class="feat-name">Property Match</div>
+        <div class="feat-desc">Automatically match your inventory to customer budgets and requirements. Never miss a fit.</div>
+      </div>
+
+      <div class="feat-card" style="--accent-color: #B794F6">
+        <span class="feat-icon">☁️</span>
+        <div class="feat-name">Cloud Sync & PWA</div>
+        <div class="feat-desc">Your data syncs to Google Sheets in real time. Install on your home screen — works like a native app.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--purple);">6</div>
+      <div class="stat-label">Pipeline Stages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--orange);">🔥🥈💫👑</div>
+      <div class="stat-label">Milestone Badges</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--blue);">100</div>
+      <div class="stat-label">Daily Score Points</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--green);">∞</div>
+      <div class="stat-label">Leads & Follow-ups</div>
+    </div>
+  </div>
+
+  <!-- Pipeline Visual -->
+  <div class="pipeline-section">
+    <div class="section-label">Your deal pipeline — at a glance</div>
+    <div class="pipeline">
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(183,148,246,0.15);border:1px solid rgba(183,148,246,0.4)">📥</div>
+        <div class="pipe-name">Enquiry</div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(99,179,237,0.15);border:1px solid rgba(99,179,237,0.4)">📞</div>
+        <div class="pipe-name">Contacted</div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(104,211,145,0.15);border:1px solid rgba(104,211,145,0.4)">🏗️</div>
+        <div class="pipe-name">Site Visit</div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(246,173,85,0.15);border:1px solid rgba(246,173,85,0.4)">🤝</div>
+        <div class="pipe-name">Negotiation</div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(252,129,74,0.15);border:1px solid rgba(252,129,74,0.4)">📝</div>
+        <div class="pipe-name">Booked</div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-dot" style="background:rgba(72,209,204,0.15);border:1px solid rgba(72,209,204,0.4)">🎉</div>
+        <div class="pipe-name">Registered</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-box">
+      <div class="cta-left">
+        <div class="cta-headline">Ready to close more deals<br/>this month?</div>
+        <div class="cta-sub">
+          Join agents across Hyderabad who track smarter,<br/>
+          follow up faster, and win more with PSR CRM.
+        </div>
+      </div>
+      <div class="cta-right">
+        <a class="wa-btn" href="https://wa.me/918885516160?text=Hi%2C+I+want+to+subscribe+to+PSR+CRM">
+          <span class="wa-icon">💬</span> Chat on WhatsApp
+        </a>
+        <span class="contact-num">📞 88855 16160</span>
+        <span class="contact-tag">CALL OR WHATSAPP ANYTIME</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-bar">
+    <div class="footer-brand">PSR CRM · psrcrm.github.io/recrm</div>
+    <div class="footer-tags">
+      <span class="footer-tag">Mobile First</span>
+      <span class="footer-tag">Real-time Sync</span>
+      <span class="footer-tag">No App Download</span>
+      <span class="footer-tag">Hyderabad 🏙️</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
